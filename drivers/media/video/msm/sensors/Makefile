@@ -22,15 +22,22 @@ obj-$(CONFIG_SP3D) += sp3d.o
 obj-$(CONFIG_QS_S5K4E1) += qs_s5k4e1.o
 obj-$(CONFIG_IMX105) += imx105.o imx105_reg.o
 
+<<<<<<< HEAD
 obj-$(CONFIG_MACH_PYRAMID) += s5k3h1gx_reg_pyd.o mt9v113_reg_pyd.o
+=======
+>>>>>>> 8648482... Pull in new unified qualcomm camera source. Being updating cameras
 obj-$(CONFIG_MACH_MECHA) += s5k6aafx_reg_mecha.o s5k3h1gx_mecha.o s5k3h1gx_reg_mecha.o#HTC_CAM chuck
 obj-$(CONFIG_MACH_VIVO) += s5k6aafx_reg_vivo.o
 obj-$(CONFIG_MACH_VIVOW) += s5k6aafx_reg_vivo.o
 obj-$(CONFIG_MACH_VIVOW_CT) += s5k6aafx_reg_vivo.o
 obj-$(CONFIG_MACH_HOLIDAY) += s5k3h2yx_reg_holiday.o s5k6aafx_reg_holiday.o s5k6aafx_reg_holiday_cob.o
-obj-$(CONFIG_MACH_VIGOR) += s5k3h2yx_reg_vigor.o ov8830_reg_vigor.o mt9d015_reg_vigor.o
+obj-$(CONFIG_MACH_VIGOR) += s5k3h2yx_reg_vigor.o 
+# obj-$(CONFIG_MACH_VIGOR) += s5k3h2yx_reg_vigor.o ov8830_reg_vigor.o mt9d015_reg_vigor.o
 obj-$(CONFIG_MACH_RUBY) += s5k3h2yx_reg_holiday.o mt9d015_reg_vigor.o
+<<<<<<< HEAD
 obj-$(CONFIG_MACH_DOUBLESHOT) += s5k3h1gx_reg_dot.o s5k3h2yx_reg_dot.o mt9v113_reg_dot.o
+=======
+>>>>>>> 8648482... Pull in new unified qualcomm camera source. Being updating cameras
 ifneq ($(CONFIG_MSM_CAMERA_V4L2),y)
 obj-$(CONFIG_MACH_RIDER) += s5k3h2yx_reg_holiday.o s5k6aafx_reg_rider.o s5k6aafx_reg_rider_cob.o ov8830_reg_vigor.o
 endif

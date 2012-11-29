@@ -79,6 +79,7 @@ struct msm_camera_device_platform_data {
 #endif
 	struct msm_bus_scale_pdata *cam_bus_scale_table;
 };
+
 enum msm_camera_csi_data_format {
 	CSI_8BIT,
 	CSI_10BIT,
@@ -238,6 +239,15 @@ enum camera_vreg_type {
 	REG_VS,
 };
 
+<<<<<<< HEAD
+=======
+#ifdef CONFIG_MSM_CAMERA_V4L2
+enum camera_vreg_type {
+	REG_LDO,
+	REG_VS,
+};
+
+>>>>>>> 8648482... Pull in new unified qualcomm camera source. Being updating cameras
 struct camera_vreg_t {
 	char *reg_name;
 	enum camera_vreg_type type;
@@ -252,6 +262,10 @@ struct msm_gpio_set_tbl {
 	uint32_t delay;
 };
 #endif
+<<<<<<< HEAD
+=======
+
+>>>>>>> 8648482... Pull in new unified qualcomm camera source. Being updating cameras
 struct msm8960_privacy_light_cfg {
 	unsigned mpp;
 };
