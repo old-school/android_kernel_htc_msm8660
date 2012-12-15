@@ -1943,6 +1943,7 @@ static int camera_sensor_power_disable(struct regulator *sensor_power)
 static struct regulator *v_camera_io;/* for XB board*/
 #endif
 
+<<<<<<< HEAD:arch/arm/mach-msm/board-ruby.c
 static struct regulator *ruby_reg_8058_l10 = NULL;
 static struct regulator *ruby_reg_8058_l23 = NULL;
 static struct regulator *ruby_reg_8058_l24 = NULL;
@@ -1951,6 +1952,17 @@ static struct regulator *ruby_reg_8058_l15 = NULL;
 //static struct regulator *ruby_reg_8901_l6 = NULL;
 static struct regulator *ruby_reg_8058_l8 = NULL;
 //static struct regulator *ruby_reg_8901_usb_otg = NULL;
+=======
+static struct regulator *vigor_reg_8058_l10 = NULL;
+static struct regulator *vigor_reg_8058_l23 = NULL;
+static struct regulator *vigor_reg_8058_l24 = NULL;
+static struct regulator *vigor_reg_8058_l15 = NULL;
+//static struct regulator *vigor_reg_8901_lvs2 = NULL;
+static struct regulator *vigor_reg_8901_l6 = NULL;
+static struct regulator *vigor_reg_8058_l8 = NULL;
+//static struct regulator *vigor_reg_8901_usb_otg = NULL;
+static struct regulator *vigor_reg_8058_l9 = NULL;
+>>>>>>> f1c56b2... V4L2 camera support continued...:arch/arm/mach-msm/board-vigor.c
 
 
 #ifdef CONFIG_S5K3H2YX
@@ -1970,7 +1982,11 @@ static int Ruby_s5k3h2yx_vreg_on(void)
 		/*pr_info("[CAM]sensor_power_enable(\"8058_l10\", 2.8V) == %d\n", rc);*/
 		udelay(50);
 	}
+<<<<<<< HEAD:arch/arm/mach-msm/board-ruby.c
 	gpio_set_value(RUBY_CAM1_VCM_PD, 1); /* CAM1_VCM_PD */
+=======
+//	gpio_set_value(VIGOR_CAM1_VCM_PD, 1); /* CAM1_VCM_PD */
+>>>>>>> f1c56b2... V4L2 camera support continued...:arch/arm/mach-msm/board-vigor.c
 	udelay(50);
 
 	/* VDD 1V2 : L24*/
@@ -2070,7 +2086,11 @@ static int Ruby_s5k3h2yx_vreg_off(void)
 	rc = camera_sensor_power_disable(ruby_reg_8058_l10);
 	pr_info("[CAM]sensor_power_disable(\"8058_l10\") == %d\n", rc);
 #else
+<<<<<<< HEAD:arch/arm/mach-msm/board-ruby.c
 	gpio_set_value(RUBY_CAM1_VCM_PD, 0); /* CAM1_VCM_PD */
+=======
+//	gpio_set_value(VIGOR_CAM1_VCM_PD, 0); /* CAM1_VCM_PD */
+>>>>>>> f1c56b2... V4L2 camera support continued...:arch/arm/mach-msm/board-vigor.c
 #endif
 
 	ruby_config_camera_off_gpios();
@@ -2227,7 +2247,13 @@ init_fail:
 
 /* mt9d015 power */
 #ifdef CONFIG_MT9D015
+<<<<<<< HEAD:arch/arm/mach-msm/board-ruby.c
 static int Ruby_mt9d015_vreg_on(void)
+=======
+static void Vigor_seccam_clk_switch(void);
+
+static int Vigor_mt9d015_vreg_on(void)
+>>>>>>> f1c56b2... V4L2 camera support continued...:arch/arm/mach-msm/board-vigor.c
 {
 	int rc;
 	pr_info("[CAM]%s\n", __func__);
@@ -2269,9 +2295,17 @@ static int Ruby_mt9d015_vreg_on(void)
 	rc = camera_sensor_power_enable("8058_l8", 1800000, &ruby_reg_8058_l8);
 	/*pr_info("[CAM] sensor_power_enable(\"8058_l8\", 1.8V) == %d\n", rc);*/
 
+<<<<<<< HEAD:arch/arm/mach-msm/board-ruby.c
 	/* Analog : L15*/
 	rc = camera_sensor_power_disable(ruby_reg_8058_l15);
 	/*pr_info("[CAM]sensor_power_disable(\"8058_l15\") == %d\n", rc);*/
+=======
+        vigor_config_camera_on_gpios();
+        Vigor_seccam_clk_switch();
+
+	return rc;
+}
+>>>>>>> f1c56b2... V4L2 camera support continued...:arch/arm/mach-msm/board-vigor.c
 
 	/* VDD 1V8 : L9*/
 	rc = camera_sensor_power_disable(ruby_reg_8058_l9);
@@ -2309,6 +2343,8 @@ by_pass_vreg_off :
 		/*pr_info("[CAM]sensor_power_disable(\"8058_l9\") == %d\n", rc);*/
 	}
 
+	vigor_config_camera_off_gpios();
+
 	return rc;
 }
 
@@ -2342,6 +2378,16 @@ static void ruby_config_camera_off_gpios(void)
                 ARRAY_SIZE(camera_off_gpio_table));
 }
 
+<<<<<<< HEAD:arch/arm/mach-msm/board-ruby.c
+=======
+static void Vigor_maincam_clk_switch(void)
+{
+	pr_info("[CAM]Doing clk switch (Main Cam)\n");
+	gpio_set_value(VIGOR_CLK_SWITCH, 0);
+}
+
+
+>>>>>>> f1c56b2... V4L2 camera support continued...:arch/arm/mach-msm/board-vigor.c
 static struct msm_bus_vectors cam_init_vectors[] = {
 	{
 		.src = MSM_BUS_MASTER_VFE,
@@ -2594,6 +2640,19 @@ static struct msm_camera_sensor_flash_data flash_s5k3h2yx = {
 	.flash_src		= &msm_flash_src
 };
 
+#ifdef CONFIG_S5K3H2YX_ACT
+static struct i2c_board_info s5k3h2yx_actuator_i2c_info = {
+	I2C_BOARD_INFO("s5k3h2yx_act", 0x18),
+};
+
+static struct msm_actuator_info s5k3h2yx_actuator_info = {
+	.board_info     = &s5k3h2yx_actuator_i2c_info,
+	.bus_id         = MSM_GSBI4_QUP_I2C_BUS_ID,
+	.vcm_pwd        = VIGOR_CAM1_VCM_PD,
+	.vcm_enable     = 1,
+};
+#endif
+
 static struct msm_camera_sensor_platform_info sensor_s5k3h2yx_board_info = {
 	.mount_angle = 90,
 	.sensor_reset_enable = 0,
@@ -2625,7 +2684,13 @@ static struct msm_camera_sensor_info msm_camera_sensor_s5k3h2yx_data = {
 	.sensor_platform_info = &sensor_s5k3h2yx_board_info,
 	.mirror_mode = 0,
 	.csi_if = 1,
+<<<<<<< HEAD:arch/arm/mach-msm/board-ruby.c
 	.gpio_set_value_force = 1,/*use different method of gpio set value*/
+=======
+#ifdef CONFIG_S5K3H2YX_ACT
+	.actuator_info = &s5k3h2yx_actuator_info,
+#endif
+>>>>>>> f1c56b2... V4L2 camera support continued...:arch/arm/mach-msm/board-vigor.c
 	.dev_node	= 0
 };
 
@@ -2644,38 +2709,66 @@ static struct msm_camera_sensor_flash_data flash_mt9d015 = {
 	/*.flash_src	= &msm_flash_src*/
 	};
 
+static struct msm_camera_sensor_platform_info sensor_mt9d015_board_info = {
+	.mount_angle = 270,
+	.sensor_reset_enable = 1,
+	.sensor_reset	= VIGOR_CAM2_RST,
+	.vcm_enable = 0,
+};
+
 static struct msm_camera_sensor_info msm_camera_sensor_mt9d015_data = {
 	.sensor_name	= "mt9d015",
+<<<<<<< HEAD:arch/arm/mach-msm/board-ruby.c
 	.sensor_reset = RUBY_CAM2_RST,
 	.camera_power_on = Ruby_sensor_vreg_on,
 	.camera_power_off = Ruby_sensor_vreg_off,
 	.camera_clk_switch = Ruby_seccam_clk_switch,
 	.vcm_enable	= 0,
+=======
+	.sensor_reset = VIGOR_CAM2_RST,
+	.camera_power_on = Vigor_mt9d015_vreg_on,
+	.camera_power_off = Vigor_mt9d015_vreg_off,
+	.camera_clk_switch = Vigor_seccam_clk_switch,
+>>>>>>> f1c56b2... V4L2 camera support continued...:arch/arm/mach-msm/board-vigor.c
 	.pdata = &msm_camera_device_data_web_cam, /* For front CAM */
 	.resource	= msm_camera_resources,
 	.num_resources	= ARRAY_SIZE(msm_camera_resources),
 	.flash_data	= &flash_mt9d015,
+<<<<<<< HEAD:arch/arm/mach-msm/board-ruby.c
 	.mirror_mode = 0,
+=======
+	.sensor_platform_info = &sensor_mt9d015_board_info,
+	.mirror_mode = 1,
+>>>>>>> f1c56b2... V4L2 camera support continued...:arch/arm/mach-msm/board-vigor.c
 	.csi_if		= 1,
-	.dev_node	= 1
+	.dev_node	= 1,
 };
 
 static void __init msm8x60_init_camera(void)
 {
+<<<<<<< HEAD:arch/arm/mach-msm/board-ruby.c
 	msm_camera_sensor_webcam.name = "msm_camera_webcam";
 #ifdef CONFIG_MT9D015
 	msm_camera_sensor_webcam.dev.platform_data = &msm_camera_sensor_mt9d015_data;
 #endif
 	int i = 0;
 	struct platform_device *cam_dev[] = {
+=======
+        int i = 0;
+        struct platform_device *cam_dev[] = {
+>>>>>>> f1c56b2... V4L2 camera support continued...:arch/arm/mach-msm/board-vigor.c
 #ifdef CONFIG_S5K3H2YX
-	&msm_camera_sensor_s5k3h2yx,
+        &msm_camera_sensor_s5k3h2yx,
 #endif
 #ifdef CONFIG_MT9D015
-	&msm_camera_sensor_webcam,
+        &msm_camera_sensor_webcam,
 #endif
-	};
+        };
 
+#ifdef CONFIG_MT9D015
+	msm_camera_sensor_webcam.name = "msm_camera_mt9d015";
+	msm_camera_sensor_webcam.dev.platform_data = &msm_camera_sensor_mt9d015_data;
+#endif
 	for (i = 0; i < ARRAY_SIZE(cam_dev); i++) {
 		platform_device_register(cam_dev[i]);
 	}
@@ -3194,9 +3287,9 @@ static void __init msm8x60_init_dsps(void)
 
 #ifdef CONFIG_TZCOM
 #define MSM_ION_QSECOM_SIZE   MSM_PMEM_KERNEL_EBI1_SIZE
-#define MSM_ION_HEAP_NUM      7
+#define MSM_ION_HEAP_NUM      9
 #else
-#define MSM_ION_HEAP_NUM      6
+#define MSM_ION_HEAP_NUM      8
 #endif
 
 #define MSM_ION_MM_FW_BASE    0x38000000
@@ -3207,6 +3300,8 @@ static void __init msm8x60_init_dsps(void)
 #define MSM_ION_ROTATOR_BASE  (MSM_ION_WB_BASE - MSM_ION_ROTATOR_SIZE)
 #define MSM_ION_CAMERA_BASE   (MSM_ION_ROTATOR_BASE - MSM_ION_CAMERA_SIZE)
 #define MSM_ION_QSECOM_BASE   (MSM_ION_CAMERA_BASE - MSM_ION_QSECOM_SIZE)
+#define MSM_ION_SF_BASE       (MSM_ION_QSECOM_BASE - MSM_ION_SF_SIZE)
+
 
 #else /* CONFIG_MSM_MULTIMEDIA_USE_ION */
 #define MSM_ION_HEAP_NUM      1
@@ -7493,6 +7588,15 @@ static struct ion_platform_data ion_pdata = {
 			.memory_type = ION_EBI_TYPE,
 			.extra_data = &co_ion_pdata,
 		},
+                {
+                        .id     = ION_SF_HEAP_ID,
+                        .type   = ION_HEAP_TYPE_CARVEOUT,
+                        .name   = ION_SF_HEAP_NAME,
+                        .base   = MSM_ION_SF_BASE,
+                        .size   = MSM_ION_SF_SIZE,
+                        .memory_type = ION_EBI_TYPE,
+                        .extra_data = (void *) &co_ion_pdata,
+                },
 		{
 			.id	= ION_CP_WB_HEAP_ID,
 			.type	= ION_HEAP_TYPE_CP,
@@ -7822,7 +7926,7 @@ static void __init reserve_pmem_memory(void)
 static void __init reserve_ion_memory(void)
 {
 #if defined(CONFIG_ION_MSM) && defined(CONFIG_MSM_MULTIMEDIA_USE_ION)
-//	msm8x60_reserve_table[MEMTYPE_EBI1].size += MSM_ION_SF_SIZE;
+	msm8x60_reserve_table[MEMTYPE_EBI1].size += MSM_ION_SF_SIZE;
 	msm8x60_reserve_table[MEMTYPE_SMI].size += MSM_ION_MM_FW_SIZE;
 	msm8x60_reserve_table[MEMTYPE_SMI].size += MSM_ION_MM_SIZE;
 	msm8x60_reserve_table[MEMTYPE_SMI].size += MSM_ION_MFC_SIZE;
