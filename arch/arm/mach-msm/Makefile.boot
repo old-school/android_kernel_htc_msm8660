@@ -70,12 +70,9 @@ initrd_phys-$(CONFIG_MACH_PRIMOU)	:= 0x14F00000
    zreladdr-$(CONFIG_MACH_PRIMOC)	:= 0x14308000
 params_phys-$(CONFIG_MACH_PRIMOC)	:= 0x14300100
 initrd_phys-$(CONFIG_MACH_PRIMOC)	:= 0x15300000
-   zreladdr-$(CONFIG_MACH_PRIMOTD)	:= 0x03F08000
-params_phys-$(CONFIG_MACH_PRIMOTD)	:= 0x03F00100
-initrd_phys-$(CONFIG_MACH_PRIMOTD)	:= 0x04F00000
-   zreladdr-$(CONFIG_MACH_GOLFC)	:= 0x14308000
-params_phys-$(CONFIG_MACH_GOLFC)	:= 0x14300100
-initrd_phys-$(CONFIG_MACH_GOLFC)	:= 0x15300000
+   zreladdr-$(CONFIG_MACH_PRIMOTD)	:= 0x04408000
+params_phys-$(CONFIG_MACH_PRIMOTD)	:= 0x04400100
+initrd_phys-$(CONFIG_MACH_PRIMOTD)	:= 0x05400000
    zreladdr-$(CONFIG_MACH_VIVOW_EVM)	:= 0x05008000
 params_phys-$(CONFIG_MACH_VIVOW_EVM)	:= 0x05000100
 initrd_phys-$(CONFIG_MACH_VIVOW_EVM)	:= 0x06000000
@@ -100,9 +97,6 @@ endif
    zreladdr-$(CONFIG_MACH_VIGOR)        := 0x48808000
    params_phys-$(CONFIG_MACH_VIGOR)     := 0x48800100
    initrd_phys-$(CONFIG_MACH_VIGOR)     := 0x49800000
-   zreladdr-$(CONFIG_MACH_DOUBLESHOT)   := 0x48008000
-   params_phys-$(CONFIG_MACH_DOUBLESHOT):= 0x48000100
-   initrd_phys-$(CONFIG_MACH_DOUBLESHOT):= 0x49000000
 
 # MSM8960
    zreladdr-$(CONFIG_ARCH_MSM8960)	:= 0x80408000

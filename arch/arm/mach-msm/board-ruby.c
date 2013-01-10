@@ -103,7 +103,8 @@
 #include <linux/i2c/isl9519.h>
 #include <mach/tpa2051d3.h>
 #ifdef CONFIG_USB_G_ANDROID
-#include <linux/usb/android.h>
+#include <linux/usb/android_composite.h>
+#include <mach/htc_usb.h>
 #include <mach/usbdiag.h>
 #endif
 #include <linux/regulator/consumer.h>
@@ -1712,7 +1713,19 @@ static int usb_diag_update_pid_and_serial_num(uint32_t pid, const char *snum)
 }
 
 static struct android_usb_platform_data android_usb_pdata = {
+	.vendor_id		= 0x0bb4,
+	.product_id		= 0x0cc2,
+	.version		= 0x0100,
+	.product_name		= "Android Phone",
+	.manufacturer_name	= "HTC",
+	.num_products		= ARRAY_SIZE(usb_products),
+	.products		= usb_products,
+	.num_functions		= ARRAY_SIZE(usb_functions_all),
+	.functions		= usb_functions_all,
+	.enable_fast_charge	= NULL,
 	.update_pid_and_serial_num = usb_diag_update_pid_and_serial_num,
+	.fserial_init_string	= "sdio:modem,tty,tty,tty:serial",
+	.nluns			= 2,
 };
 
 static struct platform_device android_usb_device = {
@@ -1725,6 +1738,7 @@ static struct platform_device android_usb_device = {
 
 static int __init board_serialno_setup(char *serialno)
 {
+	android_usb_pdata.serial_number = serialno;
 	return 1;
 }
 __setup("androidboot.serialno=", board_serialno_setup);
@@ -1732,8 +1746,17 @@ __setup("androidboot.serialno=", board_serialno_setup);
 static void ruby_add_usb_devices(void)
 {
 	printk(KERN_INFO "%s rev: %d\n", __func__, system_rev);
+	android_usb_pdata.products[0].product_id =
+		android_usb_pdata.product_id;
 
 	config_gpio_table(mhl_usb_switch_table, ARRAY_SIZE(mhl_usb_switch_table));
+
+	/* diag bit set */
+	if (get_radio_flag() & 0x20000) {
+		android_usb_pdata.diag_init = 1;
+		android_usb_pdata.modem_init = 1;
+		android_usb_pdata.rmnet_init = 1;
+	}
 
 	msm_device_gadget_peripheral.dev.parent = &msm_device_otg.dev;
 	platform_device_register(&msm_device_gadget_peripheral);
@@ -2665,7 +2688,7 @@ static void __init msm8x60_init_dsps(void)
 #define MSM_FB_SIZE roundup(MSM_FB_PRIM_BUF_SIZE + 0x313800 + MSM_FB_DSUB_PMEM_ADDER, 4096)
 #endif /* CONFIG_FB_MSM_HDMI_MSM_PANEL */
 
-#define MSM_PMEM_SF_SIZE			0x2000000 /* 32 Mbytes */
+#define MSM_PMEM_SF_SIZE			0x2000000 /* 16 Mbytes */
 #define MSM_OVERLAY_BLT_SIZE   roundup(960 * ALIGN(540, 32) * 3 * 2, 4096)
 
 #define MSM_PMEM_ADSP_SIZE		  0x2F00000
@@ -2938,6 +2961,7 @@ static struct msm_serial_hs_platform_data msm_uart_dm1_pdata = {
 	.wakeup_irq = MSM_GPIO_TO_INT(RUBY_GPIO_BT_UART1_RX),
 	.inject_rx_on_wakeup = 1,
 	.rx_to_inject = 0x32,
+//	.cpu_lock_supported = 1,
 };
 #endif
 
