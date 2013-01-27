@@ -769,3 +769,4 @@ extern int dying_processors_read_proc(char *page, char **start, off_t off,
 			   int count, int *eof, void *data);
 
 #endif
+#endif __ASM_ARCH_MSM_BOARD_H
