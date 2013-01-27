@@ -1943,7 +1943,6 @@ static int camera_sensor_power_disable(struct regulator *sensor_power)
 static struct regulator *v_camera_io;/* for XB board*/
 #endif
 
-<<<<<<< HEAD:arch/arm/mach-msm/board-ruby.c
 static struct regulator *ruby_reg_8058_l10 = NULL;
 static struct regulator *ruby_reg_8058_l23 = NULL;
 static struct regulator *ruby_reg_8058_l24 = NULL;
@@ -1952,17 +1951,15 @@ static struct regulator *ruby_reg_8058_l15 = NULL;
 //static struct regulator *ruby_reg_8901_l6 = NULL;
 static struct regulator *ruby_reg_8058_l8 = NULL;
 //static struct regulator *ruby_reg_8901_usb_otg = NULL;
-=======
-static struct regulator *vigor_reg_8058_l10 = NULL;
-static struct regulator *vigor_reg_8058_l23 = NULL;
-static struct regulator *vigor_reg_8058_l24 = NULL;
-static struct regulator *vigor_reg_8058_l15 = NULL;
-//static struct regulator *vigor_reg_8901_lvs2 = NULL;
-static struct regulator *vigor_reg_8901_l6 = NULL;
-static struct regulator *vigor_reg_8058_l8 = NULL;
-//static struct regulator *vigor_reg_8901_usb_otg = NULL;
-static struct regulator *vigor_reg_8058_l9 = NULL;
->>>>>>> f1c56b2... V4L2 camera support continued...:arch/arm/mach-msm/board-vigor.c
+static struct regulator *ruby_reg_8058_l10 = NULL;
+static struct regulator *ruby_reg_8058_l23 = NULL;
+static struct regulator *ruby_reg_8058_l24 = NULL;
+static struct regulator *ruby_reg_8058_l15 = NULL;
+//static struct regulator *ruby_reg_8901_lvs2 = NULL;
+static struct regulator *ruby_reg_8901_l6 = NULL;
+static struct regulator *ruby_reg_8058_l8 = NULL;
+//static struct regulator *ruby_reg_8901_usb_otg = NULL;
+static struct regulator *ruby_reg_8058_l9 = NULL;
 
 
 #ifdef CONFIG_S5K3H2YX
@@ -1982,11 +1979,9 @@ static int Ruby_s5k3h2yx_vreg_on(void)
 		/*pr_info("[CAM]sensor_power_enable(\"8058_l10\", 2.8V) == %d\n", rc);*/
 		udelay(50);
 	}
-<<<<<<< HEAD:arch/arm/mach-msm/board-ruby.c
-	gpio_set_value(RUBY_CAM1_VCM_PD, 1); /* CAM1_VCM_PD */
-=======
-//	gpio_set_value(VIGOR_CAM1_VCM_PD, 1); /* CAM1_VCM_PD */
->>>>>>> f1c56b2... V4L2 camera support continued...:arch/arm/mach-msm/board-vigor.c
+
+//	gpio_set_value(RUBY_CAM1_VCM_PD, 1); /* CAM1_VCM_PD */
+
 	udelay(50);
 
 	/* VDD 1V2 : L24*/
@@ -2086,11 +2081,8 @@ static int Ruby_s5k3h2yx_vreg_off(void)
 	rc = camera_sensor_power_disable(ruby_reg_8058_l10);
 	pr_info("[CAM]sensor_power_disable(\"8058_l10\") == %d\n", rc);
 #else
-<<<<<<< HEAD:arch/arm/mach-msm/board-ruby.c
-	gpio_set_value(RUBY_CAM1_VCM_PD, 0); /* CAM1_VCM_PD */
-=======
-//	gpio_set_value(VIGOR_CAM1_VCM_PD, 0); /* CAM1_VCM_PD */
->>>>>>> f1c56b2... V4L2 camera support continued...:arch/arm/mach-msm/board-vigor.c
+
+//	gpio_set_value(RUBY_CAM1_VCM_PD, 0); /* CAM1_VCM_PD */
 #endif
 
 	ruby_config_camera_off_gpios();
@@ -2130,7 +2122,7 @@ static int Ruby_sensor_vreg_on(void)
 	/* analog */
 	rc = camera_sensor_power_enable("8058_l15", 2800000, &ruby_reg_8058_l15);
 	pr_info("[CAM] sensor_power_enable(\"8058_l15\", 2.8V) == %d\n", rc);
->>>>>>> 8648482... Pull in new unified qualcomm camera source. Being updating cameras:arch/arm/mach-msm/board-ruby.c
+
 
 	mutex_lock(&vcm_workaround_vreg_mut);
 
@@ -2169,7 +2161,6 @@ static int Ruby_sensor_vreg_on(void)
 		rc = camera_sensor_power_enable("8058_l8", 1800000, &ruby_reg_8058_l8);
 		/*pr_info("[CAM] sensor_power_enable(\"8058_l8\", 1.8V) == %d\n", rc);*/
 	}
->>>>>>> 8648482... Pull in new unified qualcomm camera source. Being updating cameras:arch/arm/mach-msm/board-ruby.c
 
 	/* IO : L12*/
 	rc = camera_sensor_power_enable("8058_l12", 1800000, &ruby_reg_8058_l12);
@@ -2247,13 +2238,11 @@ init_fail:
 
 /* mt9d015 power */
 #ifdef CONFIG_MT9D015
-<<<<<<< HEAD:arch/arm/mach-msm/board-ruby.c
 static int Ruby_mt9d015_vreg_on(void)
-=======
-static void Vigor_seccam_clk_switch(void);
+static void Ruby_seccam_clk_switch(void);
 
-static int Vigor_mt9d015_vreg_on(void)
->>>>>>> f1c56b2... V4L2 camera support continued...:arch/arm/mach-msm/board-vigor.c
+static int Ruby_mt9d015_vreg_on(void)
+
 {
 	int rc;
 	pr_info("[CAM]%s\n", __func__);
@@ -2295,17 +2284,14 @@ static int Vigor_mt9d015_vreg_on(void)
 	rc = camera_sensor_power_enable("8058_l8", 1800000, &ruby_reg_8058_l8);
 	/*pr_info("[CAM] sensor_power_enable(\"8058_l8\", 1.8V) == %d\n", rc);*/
 
-<<<<<<< HEAD:arch/arm/mach-msm/board-ruby.c
 	/* Analog : L15*/
 	rc = camera_sensor_power_disable(ruby_reg_8058_l15);
 	/*pr_info("[CAM]sensor_power_disable(\"8058_l15\") == %d\n", rc);*/
-=======
-        vigor_config_camera_on_gpios();
-        Vigor_seccam_clk_switch();
+        ruby_config_camera_on_gpios();
+        Ruby_seccam_clk_switch();
 
 	return rc;
 }
->>>>>>> f1c56b2... V4L2 camera support continued...:arch/arm/mach-msm/board-vigor.c
 
 	/* VDD 1V8 : L9*/
 	rc = camera_sensor_power_disable(ruby_reg_8058_l9);
@@ -2343,7 +2329,7 @@ by_pass_vreg_off :
 		/*pr_info("[CAM]sensor_power_disable(\"8058_l9\") == %d\n", rc);*/
 	}
 
-	vigor_config_camera_off_gpios();
+	ruby_config_camera_off_gpios();
 
 	return rc;
 }
@@ -2378,16 +2364,15 @@ static void ruby_config_camera_off_gpios(void)
                 ARRAY_SIZE(camera_off_gpio_table));
 }
 
-<<<<<<< HEAD:arch/arm/mach-msm/board-ruby.c
-=======
-static void Vigor_maincam_clk_switch(void)
+
+static void Ruby_maincam_clk_switch(void)
 {
 	pr_info("[CAM]Doing clk switch (Main Cam)\n");
-	gpio_set_value(VIGOR_CLK_SWITCH, 0);
+	gpio_set_value(RUBY_CLK_SWITCH, 0);
 }
 
 
->>>>>>> f1c56b2... V4L2 camera support continued...:arch/arm/mach-msm/board-vigor.c
+
 static struct msm_bus_vectors cam_init_vectors[] = {
 	{
 		.src = MSM_BUS_MASTER_VFE,
@@ -2648,7 +2633,7 @@ static struct i2c_board_info s5k3h2yx_actuator_i2c_info = {
 static struct msm_actuator_info s5k3h2yx_actuator_info = {
 	.board_info     = &s5k3h2yx_actuator_i2c_info,
 	.bus_id         = MSM_GSBI4_QUP_I2C_BUS_ID,
-	.vcm_pwd        = VIGOR_CAM1_VCM_PD,
+	.vcm_pwd        = RUBY_CAM1_VCM_PD,
 	.vcm_enable     = 1,
 };
 #endif
@@ -2684,13 +2669,12 @@ static struct msm_camera_sensor_info msm_camera_sensor_s5k3h2yx_data = {
 	.sensor_platform_info = &sensor_s5k3h2yx_board_info,
 	.mirror_mode = 0,
 	.csi_if = 1,
-<<<<<<< HEAD:arch/arm/mach-msm/board-ruby.c
 	.gpio_set_value_force = 1,/*use different method of gpio set value*/
-=======
+
 #ifdef CONFIG_S5K3H2YX_ACT
 	.actuator_info = &s5k3h2yx_actuator_info,
 #endif
->>>>>>> f1c56b2... V4L2 camera support continued...:arch/arm/mach-msm/board-vigor.c
+
 	.dev_node	= 0
 };
 
@@ -2712,51 +2696,41 @@ static struct msm_camera_sensor_flash_data flash_mt9d015 = {
 static struct msm_camera_sensor_platform_info sensor_mt9d015_board_info = {
 	.mount_angle = 270,
 	.sensor_reset_enable = 1,
-	.sensor_reset	= VIGOR_CAM2_RST,
+	.sensor_reset	= RUBY_CAM2_RST,
 	.vcm_enable = 0,
 };
 
 static struct msm_camera_sensor_info msm_camera_sensor_mt9d015_data = {
 	.sensor_name	= "mt9d015",
-<<<<<<< HEAD:arch/arm/mach-msm/board-ruby.c
 	.sensor_reset = RUBY_CAM2_RST,
 	.camera_power_on = Ruby_sensor_vreg_on,
 	.camera_power_off = Ruby_sensor_vreg_off,
 	.camera_clk_switch = Ruby_seccam_clk_switch,
 	.vcm_enable	= 0,
-=======
-	.sensor_reset = VIGOR_CAM2_RST,
-	.camera_power_on = Vigor_mt9d015_vreg_on,
-	.camera_power_off = Vigor_mt9d015_vreg_off,
-	.camera_clk_switch = Vigor_seccam_clk_switch,
->>>>>>> f1c56b2... V4L2 camera support continued...:arch/arm/mach-msm/board-vigor.c
+	.sensor_reset = RUBY_CAM2_RST,
+	.camera_power_on = Ruby_mt9d015_vreg_on,
+	.camera_power_off = Ruby_mt9d015_vreg_off,
+	.camera_clk_switch = Ruby_seccam_clk_switch,
 	.pdata = &msm_camera_device_data_web_cam, /* For front CAM */
 	.resource	= msm_camera_resources,
 	.num_resources	= ARRAY_SIZE(msm_camera_resources),
 	.flash_data	= &flash_mt9d015,
-<<<<<<< HEAD:arch/arm/mach-msm/board-ruby.c
 	.mirror_mode = 0,
-=======
 	.sensor_platform_info = &sensor_mt9d015_board_info,
 	.mirror_mode = 1,
->>>>>>> f1c56b2... V4L2 camera support continued...:arch/arm/mach-msm/board-vigor.c
 	.csi_if		= 1,
 	.dev_node	= 1,
 };
 
 static void __init msm8x60_init_camera(void)
 {
-<<<<<<< HEAD:arch/arm/mach-msm/board-ruby.c
 	msm_camera_sensor_webcam.name = "msm_camera_webcam";
 #ifdef CONFIG_MT9D015
 	msm_camera_sensor_webcam.dev.platform_data = &msm_camera_sensor_mt9d015_data;
 #endif
 	int i = 0;
 	struct platform_device *cam_dev[] = {
-=======
-        int i = 0;
-        struct platform_device *cam_dev[] = {
->>>>>>> f1c56b2... V4L2 camera support continued...:arch/arm/mach-msm/board-vigor.c
+
 #ifdef CONFIG_S5K3H2YX
         &msm_camera_sensor_s5k3h2yx,
 #endif
