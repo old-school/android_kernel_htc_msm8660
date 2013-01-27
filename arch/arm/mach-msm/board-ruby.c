@@ -1809,12 +1809,9 @@ static struct platform_device htc_battery_pdev = {
  * =============== Camera related function (BEGIN) ===============
  */
 
-<<<<<<< HEAD:arch/arm/mach-msm/board-ruby.c
 #if 1
-=======
 #ifdef CONFIG_S5K3H2YX
 
->>>>>>> 8648482... Pull in new unified qualcomm camera source. Being updating cameras:arch/arm/mach-msm/board-vigor.c
 static int flashlight_control(int mode)
 {
 #if CONFIG_FLASHLIGHT_AAT1271
@@ -1882,7 +1879,6 @@ static uint32_t camera_on_gpio_table[] = {
 };
 #endif
 
-<<<<<<< HEAD:arch/arm/mach-msm/board-ruby.c
 static struct regulator *ruby_reg_8058_l8 = NULL;
 static struct regulator *ruby_reg_8058_l9 = NULL;
 static struct regulator *ruby_reg_8058_l10 = NULL;
@@ -1890,9 +1886,7 @@ static struct regulator *ruby_reg_8058_l12 = NULL;
 static struct regulator *ruby_reg_8058_l15 = NULL;
 static struct regulator *ruby_reg_8058_l24 = NULL;
 
-=======
 #ifdef CONFIG_S5K3H2YX
->>>>>>> 8648482... Pull in new unified qualcomm camera source. Being updating cameras:arch/arm/mach-msm/board-vigor.c
 static int camera_sensor_power_enable(char *power, unsigned volt, struct regulator **sensor_power)
 {
 	int rc;
@@ -1922,10 +1916,6 @@ static int camera_sensor_power_enable(char *power, unsigned volt, struct regulat
 	return rc;
 }
 
-<<<<<<< HEAD:arch/arm/mach-msm/board-ruby.c
-
-=======
->>>>>>> 8648482... Pull in new unified qualcomm camera source. Being updating cameras:arch/arm/mach-msm/board-vigor.c
 static int camera_sensor_power_disable(struct regulator *sensor_power)
 {
 	int rc;
@@ -1943,34 +1933,32 @@ static int camera_sensor_power_disable(struct regulator *sensor_power)
 	regulator_put(sensor_power);
 	sensor_power = NULL;
 	return rc;
-<<<<<<< HEAD:arch/arm/mach-msm/board-ruby.c
 
 }
 
 #define VCM_WORKAROUND 1
-=======
 
 }
 
 static struct regulator *v_camera_io;/* for XB board*/
 #endif
 
-static struct regulator *vigor_reg_8058_l10 = NULL;
-static struct regulator *vigor_reg_8058_l23 = NULL;
-static struct regulator *vigor_reg_8058_l24 = NULL;
-static struct regulator *vigor_reg_8058_l15 = NULL;
-//static struct regulator *vigor_reg_8901_lvs2 = NULL;
-//static struct regulator *vigor_reg_8901_l6 = NULL;
-static struct regulator *vigor_reg_8058_l8 = NULL;
-//static struct regulator *vigor_reg_8901_usb_otg = NULL;
+static struct regulator *ruby_reg_8058_l10 = NULL;
+static struct regulator *ruby_reg_8058_l23 = NULL;
+static struct regulator *ruby_reg_8058_l24 = NULL;
+static struct regulator *ruby_reg_8058_l15 = NULL;
+//static struct regulator *ruby_reg_8901_lvs2 = NULL;
+//static struct regulator *ruby_reg_8901_l6 = NULL;
+static struct regulator *ruby_reg_8058_l8 = NULL;
+//static struct regulator *ruby_reg_8901_usb_otg = NULL;
 
 
 #ifdef CONFIG_S5K3H2YX
-static int vigor_config_camera_on_gpios(void);
-static void Vigor_maincam_clk_switch(void);
+static int ruby_config_camera_on_gpios(void);
+static void Ruby_maincam_clk_switch(void);
 
 static int first_run = 1;
-static int Vigor_s5k3h2yx_vreg_on(void)
+static int Ruby_s5k3h2yx_vreg_on(void)
 {
 	int rc;
 	pr_info("[CAM]%s\n", __func__);
@@ -1978,57 +1966,53 @@ static int Vigor_s5k3h2yx_vreg_on(void)
 	if (first_run == 1) {
 		first_run = 0;
 		/* VCM : L10*/
-		rc = camera_sensor_power_enable("8058_l10", 2800000, &vigor_reg_8058_l10);
+		rc = camera_sensor_power_enable("8058_l10", 2800000, &ruby_reg_8058_l10);
 		/*pr_info("[CAM]sensor_power_enable(\"8058_l10\", 2.8V) == %d\n", rc);*/
 		udelay(50);
 	}
-	gpio_set_value(VIGOR_CAM1_VCM_PD, 1); /* CAM1_VCM_PD */
+	gpio_set_value(RUBY_CAM1_VCM_PD, 1); /* CAM1_VCM_PD */
 	udelay(50);
 
 	/* VDD 1V2 : L24*/
 	if (system_rev >= 1) /* for XB board*/
-		rc = camera_sensor_power_enable("8058_l23", 1200000, &vigor_reg_8058_l23);
+		rc = camera_sensor_power_enable("8058_l23", 1200000, &ruby_reg_8058_l23);
 	else
-		rc = camera_sensor_power_enable("8058_l24", 1200000, &vigor_reg_8058_l24);
+		rc = camera_sensor_power_enable("8058_l24", 1200000, &ruby_reg_8058_l24);
 	/*pr_info("[CAM]sensor_power_enable(\"8058_l24\", 1.2V) == %d\n", rc);*/
 	udelay(50);
 
 	/* Analog : L15*/
-	rc = camera_sensor_power_enable("8058_l15", 2800000, &vigor_reg_8058_l15);
+	rc = camera_sensor_power_enable("8058_l15", 2800000, &ruby_reg_8058_l15);
 	/*pr_info("[CAM]sensor_power_enable(\"8058_l15\", 2.8V) == %d\n", rc);*/
->>>>>>> 8648482... Pull in new unified qualcomm camera source. Being updating cameras:arch/arm/mach-msm/board-vigor.c
+
 
 DEFINE_MUTEX(vcm_workaround_vreg_mut);
 
 #ifdef VCM_WORKAROUND
 DEFINE_MUTEX(vcm_workaround_camrun_mut);
 
-<<<<<<< HEAD:arch/arm/mach-msm/board-ruby.c
 #if 0
 int s5k3h2yx_vcm_workaround(int on_off);
 
 int Ruby_camera_vcm_workaround(int on_off)
 {
 	return s5k3h2yx_vcm_workaround(on_off);
-=======
 		if (regulator_enable(v_camera_io)) {
 			pr_err("%s: enable %s fail\n", __func__, "8901_lvs2");
 			return EIO;
 		}
 	} else {
-		rc = camera_sensor_power_enable("8058_l8", 1800000, &vigor_reg_8058_l8);
+		rc = camera_sensor_power_enable("8058_l8", 1800000, &ruby_reg_8058_l8);
 		/*pr_info("[CAM] sensor_power_enable(\"8058_l8\", 1.8V) == %d\n", rc);*/
 	}
 
-	vigor_config_camera_on_gpios();
-	Vigor_maincam_clk_switch();
+	ruby_config_camera_on_gpios();
+	Ruby_maincam_clk_switch();
 
 	return rc;
->>>>>>> 8648482... Pull in new unified qualcomm camera source. Being updating cameras:arch/arm/mach-msm/board-vigor.c
 }
 #endif
 
-<<<<<<< HEAD:arch/arm/mach-msm/board-ruby.c
 static int g_camera_running = 0;
 void vcm_workaround_set_camera_running(int isRunning)
 {
@@ -2045,9 +2029,9 @@ int vcm_workaround_get_camera_running(void)
 	mutex_unlock(&vcm_workaround_camrun_mut);
 	return isRunning;
 =======
-static void vigor_config_camera_off_gpios(void);
+static void ruby_config_camera_off_gpios(void);
 
-static int Vigor_s5k3h2yx_vreg_off(void)
+static int Ruby_s5k3h2yx_vreg_off(void)
 {
 	int rc;
 	pr_info("[CAM]%s\n", __func__);
@@ -2066,33 +2050,32 @@ static int Vigor_s5k3h2yx_vreg_off(void)
 			return EIO;
 		}
 	} else {
-		rc = camera_sensor_power_disable(vigor_reg_8058_l8);
+		rc = camera_sensor_power_disable(ruby_reg_8058_l8);
 		/*pr_info("[CAM]sensor_power_disable(\"8058_l8\") == %d\n", rc);*/
 	}
 
 	/* Analog : L15*/
-	rc = camera_sensor_power_disable(vigor_reg_8058_l15);
+	rc = camera_sensor_power_disable(ruby_reg_8058_l15);
 	/*pr_info("[CAM]sensor_power_disable(\"8058_l15\") == %d\n", rc);*/
 
 	/* VDD 1V2 : L24*/
 	if (system_rev >= 1) /* for XB board*/
-		rc = camera_sensor_power_disable(vigor_reg_8058_l23);
+		rc = camera_sensor_power_disable(ruby_reg_8058_l23);
 	else
-		rc = camera_sensor_power_disable(vigor_reg_8058_l24);
+		rc = camera_sensor_power_disable(ruby_reg_8058_l24);
 	/*pr_info("[CAM]sensor_power_disable(\"8058_l24\") == %d\n", rc);*/
 
 #if 0 /* L10 impact audio testing item in hboot mode */
 	/* VCM : L10*/
-	rc = camera_sensor_power_disable(vigor_reg_8058_l10);
+	rc = camera_sensor_power_disable(ruby_reg_8058_l10);
 	pr_info("[CAM]sensor_power_disable(\"8058_l10\") == %d\n", rc);
 #else
-	gpio_set_value(VIGOR_CAM1_VCM_PD, 0); /* CAM1_VCM_PD */
+	gpio_set_value(RUBY_CAM1_VCM_PD, 0); /* CAM1_VCM_PD */
 #endif
 
-	vigor_config_camera_off_gpios();
+	ruby_config_camera_off_gpios();
 
 	return rc;
->>>>>>> 8648482... Pull in new unified qualcomm camera source. Being updating cameras:arch/arm/mach-msm/board-vigor.c
 }
 #endif
 
@@ -2100,26 +2083,24 @@ static int camera_vreg_on = 0;
 static int Ruby_sensor_vreg_on(void)
 {
 	int rc = 0;
-<<<<<<< HEAD:arch/arm/mach-msm/board-ruby.c
 
 	pr_info("[CAM]%s\n", __func__);
-=======
 	struct regulator *votg_2_8v_switch;
 	pr_info("[CAM] %s\n", __func__);
 
 	/* VCM */
 #if 0
-	rc = camera_sensor_power_enable("8058_l10", 2800000, &vigor_reg_8058_l10);
+	rc = camera_sensor_power_enable("8058_l10", 2800000, &ruby_reg_8058_l10);
 	pr_info("[CAM] sensor_power_enable(\"8058_l10\", 2.85V) == %d\n", rc);
 #else
 	if (first_run == 1) {
 		first_run = 0;
 		/* VCM : L10*/
-		rc = camera_sensor_power_enable("8058_l10", 2800000, &vigor_reg_8058_l10);
+		rc = camera_sensor_power_enable("8058_l10", 2800000, &ruby_reg_8058_l10);
 		pr_info("[CAM]sensor_power_enable,1,(\"8058_l10\", 2.8V) == %d\n", rc);
 		udelay(50);
 	}
-	gpio_set_value(VIGOR_CAM1_VCM_PD, 1); /* CAM1_VCM_PD */
+	gpio_set_value(RUBY_CAM1_VCM_PD, 1); /* CAM1_VCM_PD */
 	udelay(50);
 #endif
 
@@ -2127,9 +2108,9 @@ static int Ruby_sensor_vreg_on(void)
 		goto init_fail;
 
 	/* analog */
-	rc = camera_sensor_power_enable("8058_l15", 2800000, &vigor_reg_8058_l15);
+	rc = camera_sensor_power_enable("8058_l15", 2800000, &ruby_reg_8058_l15);
 	pr_info("[CAM] sensor_power_enable(\"8058_l15\", 2.8V) == %d\n", rc);
->>>>>>> 8648482... Pull in new unified qualcomm camera source. Being updating cameras:arch/arm/mach-msm/board-vigor.c
+>>>>>>> 8648482... Pull in new unified qualcomm camera source. Being updating cameras:arch/arm/mach-msm/board-ruby.c
 
 	mutex_lock(&vcm_workaround_vreg_mut);
 
@@ -2156,21 +2137,19 @@ static int Ruby_sensor_vreg_on(void)
 	/*pr_info("[CAM]sensor_power_enable(\"8058_l9\", 1800) == %d\n", rc);*/
 	udelay(50);
 
-<<<<<<< HEAD:arch/arm/mach-msm/board-ruby.c
 	/* Analog : L15*/
 	rc = camera_sensor_power_enable("8058_l15", 2800000, &ruby_reg_8058_l15);
 	/*pr_info("[CAM]sensor_power_enable(\"8058_l15\", 2800) == %d\n", rc);*/
 	udelay(50);
-=======
 		if (regulator_enable(v_camera_io)) {
 			pr_err("%s: enable %s fail\n", __func__, "8901_lvs2");
 			return EIO;
 		}
 	} else {
-		rc = camera_sensor_power_enable("8058_l8", 1800000, &vigor_reg_8058_l8);
+		rc = camera_sensor_power_enable("8058_l8", 1800000, &ruby_reg_8058_l8);
 		/*pr_info("[CAM] sensor_power_enable(\"8058_l8\", 1.8V) == %d\n", rc);*/
 	}
->>>>>>> 8648482... Pull in new unified qualcomm camera source. Being updating cameras:arch/arm/mach-msm/board-vigor.c
+>>>>>>> 8648482... Pull in new unified qualcomm camera source. Being updating cameras:arch/arm/mach-msm/board-ruby.c
 
 	/* IO : L12*/
 	rc = camera_sensor_power_enable("8058_l12", 1800000, &ruby_reg_8058_l12);
@@ -2188,10 +2167,8 @@ static void Ruby_maincam_clk_switch(void);
 static int Ruby_sensor_vreg_off(void)
 {
 	int rc = 0;
-<<<<<<< HEAD:arch/arm/mach-msm/board-ruby.c
 
 	pr_info("[CAM]%s\n", __func__);
-=======
 	struct regulator *votg_2_8v_switch;
 	pr_info("[CAM] %s\n", __func__);
 
@@ -2209,7 +2186,7 @@ static int Ruby_sensor_vreg_off(void)
 			return EIO;
 		}
 	} else {
-		rc = camera_sensor_power_disable(vigor_reg_8058_l8);
+		rc = camera_sensor_power_disable(ruby_reg_8058_l8);
 		/*pr_info("[CAM]sensor_power_disable(\"8058_l8\") == %d\n", rc);*/
 	}
 
@@ -2218,7 +2195,7 @@ static int Ruby_sensor_vreg_off(void)
 		goto init_fail;
 
 	/* analog */
-	rc = camera_sensor_power_disable(vigor_reg_8058_l15);
+	rc = camera_sensor_power_disable(ruby_reg_8058_l15);
 
 	if (rc < 0)
 		goto init_fail;
@@ -2235,10 +2212,10 @@ static int Ruby_sensor_vreg_off(void)
 
 #if 0 /* L10 impact audio testing item in hboot mode */
 	/* VCM : L10*/
-	rc = camera_sensor_power_disable(vigor_reg_8058_l10);
+	rc = camera_sensor_power_disable(ruby_reg_8058_l10);
 	pr_info("[CAM]sensor_power_disable(\"8058_l10\") == %d\n", rc);
 #else
-	gpio_set_value(VIGOR_CAM1_VCM_PD, 0); /* CAM1_VCM_PD */
+	gpio_set_value(RUBY_CAM1_VCM_PD, 0); /* CAM1_VCM_PD */
 #endif
 
 	udelay(50);
@@ -2250,54 +2227,47 @@ init_fail:
 
 /* mt9d015 power */
 #ifdef CONFIG_MT9D015
-static int Vigor_mt9d015_vreg_on(void)
+static int Ruby_mt9d015_vreg_on(void)
 {
 	int rc;
 	pr_info("[CAM]%s\n", __func__);
 	/* for 2nd CAM probed fail sometimes */
-	gpio_set_value(VIGOR_CAM1_VCM_PD, 0); /* CAM1_VCM_PD */
+	gpio_set_value(RUBY_CAM1_VCM_PD, 0); /* CAM1_VCM_PD */
 	udelay(50);
 	/* L10 impact audio testing item in hboot mode */
 	if (first_run == 1) {
 		first_run = 0;
 		/* VCM : L10*/
-		rc = camera_sensor_power_enable("8058_l10", 2800000, &vigor_reg_8058_l10);
+		rc = camera_sensor_power_enable("8058_l10", 2800000, &ruby_reg_8058_l10);
 		/*pr_info("[CAM]sensor_power_enable(\"8058_l10\", 2.8V) == %d\n", rc);*/
 		udelay(50);
 	}
->>>>>>> 8648482... Pull in new unified qualcomm camera source. Being updating cameras:arch/arm/mach-msm/board-vigor.c
 
 	mutex_lock(&vcm_workaround_vreg_mut);
 
-<<<<<<< HEAD:arch/arm/mach-msm/board-ruby.c
 	if (camera_vreg_on == 0) {
 		pr_info("[CAM]%s  camera_vreg_on=0  vreg already off\n", __func__);
 		goto by_pass_vreg_off;
-=======
 		if (regulator_enable(v_camera_io)) {
 			pr_err("%s: enable %s fail\n", __func__, "8901_lvs3");
 			return EIO;
 		}
 	} else {
-		rc = camera_sensor_power_enable("8058_l9", 1800000, &vigor_reg_8058_l9);
+		rc = camera_sensor_power_enable("8058_l9", 1800000, &ruby_reg_8058_l9);
 		/*pr_info("[CAM]sensor_power_enable(\"8058_l9\", 1.8V) == %d\n", rc);*/
->>>>>>> 8648482... Pull in new unified qualcomm camera source. Being updating cameras:arch/arm/mach-msm/board-vigor.c
 	}
 
-<<<<<<< HEAD:arch/arm/mach-msm/board-ruby.c
 	/* IO : L12*/
 	rc = camera_sensor_power_disable(ruby_reg_8058_l12);
 	/*pr_info("[CAM]sensor_power_disable(\"8058_l12\") == %d\n", rc);*/
-=======
 	/* Analog : PM8901 L6*/
-	rc = camera_sensor_power_enable("8901_l6", 2800000, &vigor_reg_8901_l6);
+	rc = camera_sensor_power_enable("8901_l6", 2800000, &ruby_reg_8901_l6);
 	/*pr_info("[CAM]sensor_power_enable(\"8901_l6\", 2.8V) == %d\n", rc);*/
 	udelay(50);
 
 	/* IO : L8*/
-	rc = camera_sensor_power_enable("8058_l8", 1800000, &vigor_reg_8058_l8);
+	rc = camera_sensor_power_enable("8058_l8", 1800000, &ruby_reg_8058_l8);
 	/*pr_info("[CAM] sensor_power_enable(\"8058_l8\", 1.8V) == %d\n", rc);*/
->>>>>>> 8648482... Pull in new unified qualcomm camera source. Being updating cameras:arch/arm/mach-msm/board-vigor.c
 
 	/* Analog : L15*/
 	rc = camera_sensor_power_disable(ruby_reg_8058_l15);
@@ -2307,7 +2277,6 @@ static int Vigor_mt9d015_vreg_on(void)
 	rc = camera_sensor_power_disable(ruby_reg_8058_l9);
 	/*pr_info("[CAM]sensor_power_disable(\"8058_l9\") == %d\n", rc);*/
 
-<<<<<<< HEAD:arch/arm/mach-msm/board-ruby.c
 	/* VDD 1V2 : L24*/
 	rc = camera_sensor_power_disable(ruby_reg_8058_l24);
 	/*pr_info("[CAM]sensor_power_disable(\"8058_l24\") == %d\n", rc);*/
@@ -2318,37 +2287,31 @@ static int Vigor_mt9d015_vreg_on(void)
 	else
 		rc = camera_sensor_power_disable(ruby_reg_8058_l10);
 	/*pr_info("[CAM]sensor_power_disable(\"8058_l10\") == %d\n", rc);*/
-=======
 	/* IO : L8*/
-	rc = camera_sensor_power_disable(vigor_reg_8058_l8);
+	rc = camera_sensor_power_disable(ruby_reg_8058_l8);
 	/*pr_info("[CAM]sensor_power_disable(\"8058_l8\") == %d\n", rc);*/
 
 	/* Analog : PM8901 L6*/
-	rc = camera_sensor_power_disable(vigor_reg_8901_l6);
+	rc = camera_sensor_power_disable(ruby_reg_8901_l6);
 	/*pr_info("[CAM]sensor_power_disable(\"8901_l6\") == %d\n", rc);*/
->>>>>>> 8648482... Pull in new unified qualcomm camera source. Being updating cameras:arch/arm/mach-msm/board-vigor.c
 
 	camera_vreg_on = 0;
 
-<<<<<<< HEAD:arch/arm/mach-msm/board-ruby.c
 by_pass_vreg_off :
 	mutex_unlock(&vcm_workaround_vreg_mut);
 	Ruby_maincam_clk_switch();
-=======
 		if (regulator_disable(v_camera_io)) {
 			pr_err("%s: disable %s fail\n", __func__, "8901_lvs3");
 			return EIO;
 		}
 	} else {
-		rc = camera_sensor_power_disable(vigor_reg_8058_l9);
+		rc = camera_sensor_power_disable(ruby_reg_8058_l9);
 		/*pr_info("[CAM]sensor_power_disable(\"8058_l9\") == %d\n", rc);*/
 	}
->>>>>>> 8648482... Pull in new unified qualcomm camera source. Being updating cameras:arch/arm/mach-msm/board-vigor.c
 
 	return rc;
 }
 
-<<<<<<< HEAD:arch/arm/mach-msm/board-ruby.c
 
 static void Ruby_maincam_clk_switch(void)
 {
@@ -2356,8 +2319,6 @@ static void Ruby_maincam_clk_switch(void)
 	gpio_set_value(RUBY_CLK_SWITCH, 0);
 }
 
-=======
->>>>>>> 8648482... Pull in new unified qualcomm camera source. Being updating cameras:arch/arm/mach-msm/board-vigor.c
 #ifdef CONFIG_MT9D015
 static void Ruby_seccam_clk_switch(void)
 {
@@ -2368,12 +2329,7 @@ static void Ruby_seccam_clk_switch(void)
 
 #ifdef CONFIG_S5K3H2YX
 #define GPIO_CAM_EN (GPIO_EXPANDER_GPIO_BASE + 13)
-<<<<<<< HEAD:arch/arm/mach-msm/board-ruby.c
 static int ruby_config_camera_on_gpios(void)
-=======
-#ifdef CONFIG_S5K3H2YX
-static int vigor_config_camera_on_gpios(void)
->>>>>>> 8648482... Pull in new unified qualcomm camera source. Being updating cameras:arch/arm/mach-msm/board-vigor.c
 {
         config_gpio_table(camera_on_gpio_table,
                 ARRAY_SIZE(camera_on_gpio_table));
@@ -2385,15 +2341,6 @@ static void ruby_config_camera_off_gpios(void)
         config_gpio_table(camera_off_gpio_table,
                 ARRAY_SIZE(camera_off_gpio_table));
 }
-
-<<<<<<< HEAD:arch/arm/mach-msm/board-ruby.c
-=======
-static void Vigor_maincam_clk_switch(void)
-{
-        pr_info("[CAM]Doing clk switch (Main Cam)\n");
-        gpio_set_value(VIGOR_CLK_SWITCH, 0);
-}
-
 
 static struct msm_bus_vectors cam_init_vectors[] = {
 	{
@@ -2587,7 +2534,6 @@ static struct msm_bus_scale_pdata cam_bus_client_pdata = {
 		ARRAY_SIZE(cam_bus_client_config),
 		.name = "msm_camera",
 };
->>>>>>> 8648482... Pull in new unified qualcomm camera source. Being updating cameras:arch/arm/mach-msm/board-vigor.c
 
 static struct msm_camera_device_platform_data msm_camera_device_data = {
 	.camera_gpio_on  = ruby_config_camera_on_gpios,
@@ -2653,13 +2599,12 @@ static struct msm_camera_sensor_platform_info sensor_s5k3h2yx_board_info = {
 	.sensor_reset_enable = 0,
 	.sensor_reset	= 0,
 	.sensor_pwd	= -1, /*RST pin does not connect to CPU*/
-	.vcm_pwd	= VIGOR_CAM1_VCM_PD,
+	.vcm_pwd	= RUBY_CAM1_VCM_PD,
 	.vcm_enable	= 1,
 };
 
 static struct msm_camera_sensor_info msm_camera_sensor_s5k3h2yx_data = {
 	.sensor_name	= "s5k3h2yx",
-<<<<<<< HEAD:arch/arm/mach-msm/board-ruby.c
 	.sensor_reset = 0,
 	.sensor_pwd = RUBY_CAM1_RST,
 	.vcm_pwd = RUBY_CAM1_VCM_PD,
@@ -2667,22 +2612,17 @@ static struct msm_camera_sensor_info msm_camera_sensor_s5k3h2yx_data = {
 	.camera_power_on = Ruby_sensor_vreg_on,
 	.camera_power_off = Ruby_sensor_vreg_off,
 	.camera_clk_switch = Ruby_maincam_clk_switch,
-=======
 	.camera_pm8058_power = camera_pm8058_power,
-	.camera_power_on = Vigor_s5k3h2yx_vreg_on,
-	.camera_power_off = Vigor_s5k3h2yx_vreg_off,
-	.camera_clk_switch = Vigor_maincam_clk_switch,
->>>>>>> 8648482... Pull in new unified qualcomm camera source. Being updating cameras:arch/arm/mach-msm/board-vigor.c
+	.camera_power_on = Ruby_s5k3h2yx_vreg_on,
+	.camera_power_off = Ruby_s5k3h2yx_vreg_off,
+	.camera_clk_switch = Ruby_maincam_clk_switch,
 	.pdata = &msm_camera_device_data,
 	.resource = msm_camera_resources,
 	.num_resources = ARRAY_SIZE(msm_camera_resources),
 	.flash_data		= &flash_s5k3h2yx,
-<<<<<<< HEAD:arch/arm/mach-msm/board-ruby.c
 	.flash_cfg = &msm_camera_sensor_flash_cfg,
-=======
 	.flash_cfg = &msm_camera_sensor_s5k3h2yx_flash_cfg, /* HTC linear led 20111011 */
 	.sensor_platform_info = &sensor_s5k3h2yx_board_info,
->>>>>>> 8648482... Pull in new unified qualcomm camera source. Being updating cameras:arch/arm/mach-msm/board-vigor.c
 	.mirror_mode = 0,
 	.csi_if = 1,
 	.gpio_set_value_force = 1,/*use different method of gpio set value*/
@@ -6150,13 +6090,10 @@ static void register_i2c_devices(void)
 		config_ruby_gyro_diag_gpios(1);
 		printk(KERN_INFO "%s , set gyro DIAG %d input  pull down \n",  __func__, RUBY_GPIO_GYRO_DIAG);
 	}
-<<<<<<< HEAD:arch/arm/mach-msm/board-ruby.c
 	if (system_rev > 4) {
 		pr_info("PVT for cm3628 \n");
-=======
 
 	if (engineerid >= 0x2) {
->>>>>>> 8648482... Pull in new unified qualcomm camera source. Being updating cameras:arch/arm/mach-msm/board-vigor.c
 		i2c_register_board_info(MSM_GSBI12_QUP_I2C_BUS_ID,
 				i2c_CM3628_PVT_devices, ARRAY_SIZE(i2c_CM3628_PVT_devices));
 	} else {
@@ -7743,7 +7680,6 @@ static struct platform_device *ruby_devices[] __initdata = {
 #ifdef CONFIG_FB_MSM_HDMI_MSM_PANEL
 	&hdmi_msm_device,
 #endif
-<<<<<<< HEAD:arch/arm/mach-msm/board-ruby.c
 #ifdef CONFIG_MSM_CAMERA
 #ifdef CONFIG_S5K3H2YX
 	&msm_camera_sensor_s5k3h2yx,
@@ -7752,8 +7688,6 @@ static struct platform_device *ruby_devices[] __initdata = {
 	&msm_camera_sensor_webcam, /* for front camera */
 #endif
 #endif
-=======
->>>>>>> 8648482... Pull in new unified qualcomm camera source. Being updating cameras:arch/arm/mach-msm/board-vigor.c
 
 #ifdef CONFIG_MSM_GEMINI
 	&msm_gemini_device,
@@ -8100,7 +8034,6 @@ static void __init msm8x60_init(struct msm_board_data *board_data)
 	if (SOCINFO_VERSION_MAJOR(socinfo_get_version()) != 1)
 		platform_add_devices(msm_footswitch_devices, msm_num_footswitch_devices);
 
-<<<<<<< HEAD:arch/arm/mach-msm/board-ruby.c
 	msm8x60_init_camera();
 
 	/* Accessory */
@@ -8115,15 +8048,12 @@ static void __init msm8x60_init(struct msm_board_data *board_data)
 		htc_headset_misc_data.ext_accessory_type = USB_AUDIO_OUT;
 		htc_headset_mgr_data.headset_init = headset_init;
 	}
-=======
 #if 0
 	/* disable uart under OS normal for MHL audio jack */
 	if ((board_build_flag() != MFG_BUILD) && !(get_kernel_flag() & BIT1))
-		vigor_disable_serial_debug_gpios();
+		ruby_disable_serial_debug_gpios();
 #endif
 
-	platform_add_devices(vigor_devices, ARRAY_SIZE(vigor_devices));
->>>>>>> 8648482... Pull in new unified qualcomm camera source. Being updating cameras:arch/arm/mach-msm/board-vigor.c
 
 	platform_add_devices(ruby_devices, ARRAY_SIZE(ruby_devices));
 	platform_add_devices(asoc_devices, ARRAY_SIZE(asoc_devices));

@@ -43,8 +43,6 @@ obj-$(CONFIG_ARCH_MSM7X27A) += msm_vfe7x27a.o msm_io_7x27a.o
 obj-$(CONFIG_ARCH_MSM7X30) += msm_vfe_7x30.o msm_io_7x30.o msm_vpe1_7x30.o
 obj-$(CONFIG_ARCH_QSD8X50) += msm_vfe8x.o msm_vfe8x_proc.o msm_io8x.o
 
-<<<<<<< HEAD
-=======
 ifdef CONFIG_S5K4E5YX
 obj-$(CONFIG_MACH_BLISS) += s5k4e5yx.o s5k4e5yx_reg_bls.o
 obj-$(CONFIG_MACH_BLISSC) += s5k4e5yx.o s5k4e5yx_reg_bls.o
@@ -53,8 +51,6 @@ obj-$(CONFIG_MACH_PRIMOC) += s5k4e5yx.o s5k4e5yx_reg_pro.o
 obj-$(CONFIG_MACH_KINGDOM) += s5k4e5yx.o s5k4e5yx_reg_kin.o
 endif
 
-
->>>>>>> 8648482... Pull in new unified qualcomm camera source. Being updating cameras
 ifeq ($(CONFIG_MSM_CAMERA_V4L2),y)
   obj-$(CONFIG_ARCH_MSM8X60) += msm_io_8x60_v4l2.o msm_vfe31_v4l2.o msm_vpe_8x60_v4l2.o
 else
@@ -68,8 +64,6 @@ else
 		obj-$(CONFIG_ARCH_MSM8X60) += msm_io_8x60.o msm_vfe_8x60.o msm_vpe1_8x60.o
 	endif
 endif
-<<<<<<< HEAD
-=======
 endif
 
 obj-$(CONFIG_ARCH_MSM8960) += msm_io_8960.o msm_ispif.o msm_vfe32.o msm_vpe.o
@@ -114,7 +108,6 @@ else
   obj-$(CONFIG_MT9V113) += mt9v113.o mt9v113_reg_lens_9251.o
   obj-$(CONFIG_VX6953) += vx6953.o vx6953_reg.o
   obj-$(CONFIG_IMX074) += imx074.o imx074_reg.o
->>>>>>> 8648482... Pull in new unified qualcomm camera source. Being updating cameras
 endif
 
 obj-$(CONFIG_ARCH_MSM8960) += msm_io_8960.o msm_ispif.o msm_vfe32.o msm_vpe.o

@@ -1732,10 +1732,6 @@ struct platform_device msm8x60_device_vpe = {
 
 #endif
 
-<<<<<<< HEAD
-
-=======
->>>>>>> 8648482... Pull in new unified qualcomm camera source. Being updating cameras
 #define MIPI_DSI_HW_BASE	0x04700000
 #define ROTATOR_HW_BASE		0x04E00000
 #define TVENC_HW_BASE		0x04F00000

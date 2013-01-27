@@ -85,17 +85,11 @@ extern struct platform_device msm_rpm_stat_device;
 #endif
 
 #ifdef CONFIG_MSM_CAMERA_V4L2
-<<<<<<< HEAD
 
-=======
->>>>>>> 8648482... Pull in new unified qualcomm camera source. Being updating cameras
 extern struct platform_device msm8x60_device_csic0;
 extern struct platform_device msm8x60_device_csic1;
 extern struct platform_device msm8x60_device_vfe;
 extern struct platform_device msm8x60_device_vpe;
 #endif
-<<<<<<< HEAD
 
-=======
->>>>>>> 8648482... Pull in new unified qualcomm camera source. Being updating cameras
 #endif
