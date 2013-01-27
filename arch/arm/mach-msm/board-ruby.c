@@ -138,7 +138,8 @@
 #include <mach/mdm.h>
 #include <mach/htc_util.h>
 #include <mach/board_htc.h>
-<<<<<<< HEAD:arch/arm/mach-msm/board-ruby.c
+#include <linux/ion.h>
+#include <mach/ion.h>
 #include <linux/akm8975.h>
 #include <linux/bma250.h>
 #include <linux/ewtzmu2.h>
@@ -199,11 +200,6 @@ static struct platform_device wl128x_device = {
 
 
 #define MSM_SHARED_RAM_PHYS 0x40000000
-=======
-#include <linux/ion.h>
-#include <mach/ion.h>
-
->>>>>>> 6cfd31e... Add ion system heap allocation:arch/arm/mach-msm/board-vigor.c
 
 #ifdef CONFIG_PERFLOCK
 #include <mach/perflock.h>
