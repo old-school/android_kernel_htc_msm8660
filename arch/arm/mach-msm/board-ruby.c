@@ -2772,35 +2772,6 @@ early_param("pmem_audio_size", pmem_audio_size_setup);
 #endif
 
 #ifdef CONFIG_ANDROID_PMEM
-<<<<<<< HEAD:arch/arm/mach-msm/board-ruby.c
-static struct android_pmem_platform_data android_pmem_sf_pdata = {
-	.name = "pmem",
-	.allocator_type = PMEM_ALLOCATORTYPE_BITMAP,
-	.cached = 0,
-	.memory_type = MEMTYPE_EBI1,
-};
-
-static struct platform_device android_pmem_sf_device = {
-	.name = "android_pmem",
-	.id = 1,
-	.dev = { .platform_data = &android_pmem_sf_pdata },
-};
-
-static struct android_pmem_platform_data android_pmem_adsp_pdata = {
-	.name = "pmem_adsp",
-	.allocator_type = PMEM_ALLOCATORTYPE_BITMAP,
-	.cached = 1,
-	.memory_type = MEMTYPE_EBI1,
-};
-
-static struct platform_device android_pmem_adsp_device = {
-	.name = "android_pmem",
-	.id = 2,
-	.dev = { .platform_data = &android_pmem_adsp_pdata },
-};
-
-=======
->>>>>>> 294b22b... Add ION multimedia heaps:arch/arm/mach-msm/board-vigor.c
 static struct android_pmem_platform_data android_pmem_audio_pdata = {
 	.name = "pmem_audio",
 	.allocator_type = PMEM_ALLOCATORTYPE_BITMAP,
@@ -7224,11 +7195,6 @@ static struct platform_device *ruby_devices[] __initdata = {
 	&msm_batt_device,
 #endif
 #ifdef CONFIG_ANDROID_PMEM
-<<<<<<< HEAD:arch/arm/mach-msm/board-ruby.c
-	&android_pmem_sf_device,
-	&android_pmem_adsp_device,
-=======
->>>>>>> 294b22b... Add ION multimedia heaps:arch/arm/mach-msm/board-vigor.c
 	&android_pmem_audio_device,
 #endif
 #ifdef CONFIG_MSM_ROTATOR
@@ -7360,11 +7326,6 @@ static void __init size_pmem_device(struct android_pmem_platform_data *pdata, un
 static void __init size_pmem_devices(void)
 {
 #ifdef CONFIG_ANDROID_PMEM
-<<<<<<< HEAD:arch/arm/mach-msm/board-ruby.c
-	size_pmem_device(&android_pmem_adsp_pdata, MSM_PMEM_ADSP_BASE, pmem_adsp_size);
-	size_pmem_device(&android_pmem_smipool_pdata, MSM_PMEM_SMIPOOL_BASE, MSM_PMEM_SMIPOOL_SIZE);
-=======
->>>>>>> 294b22b... Add ION multimedia heaps:arch/arm/mach-msm/board-vigor.c
 	size_pmem_device(&android_pmem_audio_pdata, MSM_PMEM_AUDIO_BASE, pmem_audio_size);
 #endif
 }
