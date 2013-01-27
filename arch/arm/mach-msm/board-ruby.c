@@ -1943,7 +1943,6 @@ static int camera_sensor_power_disable(struct regulator *sensor_power)
 static struct regulator *v_camera_io;/* for XB board*/
 #endif
 
-<<<<<<< HEAD:arch/arm/mach-msm/board-ruby.c
 static struct regulator *ruby_reg_8058_l10 = NULL;
 static struct regulator *ruby_reg_8058_l23 = NULL;
 static struct regulator *ruby_reg_8058_l24 = NULL;
@@ -1962,15 +1961,13 @@ static struct regulator *ruby_reg_8058_l8 = NULL;
 //static struct regulator *ruby_reg_8901_usb_otg = NULL;
 static struct regulator *ruby_reg_8058_l9 = NULL;
 
-=======
-static struct regulator *vigor_reg_8058_l10 = NULL;
-static struct regulator *vigor_reg_8058_l23 = NULL;
-static struct regulator *vigor_reg_8058_l24 = NULL;
-static struct regulator *vigor_reg_8058_l15 = NULL;
-//static struct regulator *vigor_reg_8901_lvs2 = NULL;
-static struct regulator *vigor_reg_8058_l8 = NULL;
-//static struct regulator *vigor_reg_8901_usb_otg = NULL;
->>>>>>> 85ee0db... Fix building with mt9d015 disabled:arch/arm/mach-msm/board-vigor.c
+static struct regulator *ruby_reg_8058_l10 = NULL;
+static struct regulator *ruby_reg_8058_l23 = NULL;
+static struct regulator *ruby_reg_8058_l24 = NULL;
+static struct regulator *ruby_reg_8058_l15 = NULL;
+//static struct regulator *ruby_reg_8901_lvs2 = NULL;
+static struct regulator *ruby_reg_8058_l8 = NULL;
+//static struct regulator *ruby_reg_8901_usb_otg = NULL;
 
 #ifdef CONFIG_S5K3H2YX
 static int ruby_config_camera_on_gpios(void);
@@ -2049,7 +2046,7 @@ int vcm_workaround_get_camera_running(void)
 	isRunning = g_camera_running;
 	mutex_unlock(&vcm_workaround_camrun_mut);
 	return isRunning;
-=======
+
 static void ruby_config_camera_off_gpios(void);
 
 static int Ruby_s5k3h2yx_vreg_off(void)
@@ -2248,17 +2245,14 @@ init_fail:
 
 /* mt9d015 power */
 #ifdef CONFIG_MT9D015
-<<<<<<< HEAD:arch/arm/mach-msm/board-ruby.c
 static int Ruby_mt9d015_vreg_on(void)
 static void Ruby_seccam_clk_switch(void);
 
 static int Ruby_mt9d015_vreg_on(void)
-=======
-static struct regulator *vigor_reg_8901_l6 = NULL;
-static struct regulator *vigor_reg_8058_l9 = NULL;
+static struct regulator *ruby_reg_8901_l6 = NULL;
+static struct regulator *ruby_reg_8058_l9 = NULL;
 
-static void Vigor_seccam_clk_switch(void);
->>>>>>> 85ee0db... Fix building with mt9d015 disabled:arch/arm/mach-msm/board-vigor.c
+static void Ruby_seccam_clk_switch(void);
 
 {
 	int rc;
