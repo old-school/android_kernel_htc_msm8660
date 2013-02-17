@@ -481,17 +481,10 @@ void ruby_get_acoustic_tables(struct acoustic_tables *tb)
 
 
 	/* HW version is after XD */
-	if (system_rev > 3)
+	if (system_rev > 2)
 		strcpy(tb->aic3254, "AIC3254_REG_DualMic.csv");
 	else
 		strcpy(tb->aic3254, "AIC3254_REG_DualMic_XD.csv");
-
-	if (system_rev > 2)
-		strcpy(tb->tpa2051, "TPA2051_CFG.csv");
-	else if (system_rev == 2)
-		strcpy(tb->tpa2051, "TPA2051_CFG_XC.csv");
-	else
-		strcpy(tb->tpa2051, "TPA2051_CFG_XB.csv");
 }
 
 void ruby_reset_3254(void)
