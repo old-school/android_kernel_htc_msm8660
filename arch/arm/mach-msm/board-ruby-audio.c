@@ -479,12 +479,8 @@ void ruby_get_acoustic_tables(struct acoustic_tables *tb)
 	memset(tb->tpa2026, 0, PROPERTY_VALUE_MAX);
 	memset(tb->tpa2028, 0, PROPERTY_VALUE_MAX);
 
-
-	/* HW version is after XD */
-	if (system_rev > 2)
-		strcpy(tb->aic3254, "AIC3254_REG_DualMic.csv");
-	else
-		strcpy(tb->aic3254, "AIC3254_REG_DualMic_XD.csv");
+	strcpy(tb->aic3254, "AIC3254_REG_DualMic.csv");
+	strcpy(tb->aic3254, "AIC3254_REG_DualMic_XD.csv");
 }
 
 void ruby_reset_3254(void)
